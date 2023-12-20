@@ -1,0 +1,15 @@
+@import url("https://free.bboxtype.com/embedfonts/?family=FiraGO:400,500,700");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'FiraGO', sans-serif;
+  }
+
+}
