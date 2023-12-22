@@ -39,7 +39,7 @@ const BlogDetail = () => {
           <img
             src={blog?.image}
             alt={blog?.title}
-            className="w-full h-[320px] mb-[40px]"
+            className="w-full h-[320px] mb-[40px] object-cover"
           />
           <p className="text-[#1A1A1F] text-[16px] mb-[8px] font-[500]">
             {blog?.author}
@@ -53,20 +53,20 @@ const BlogDetail = () => {
             {blog?.title}
           </h1>
 
-          <div className="flex gap-[16px] mb-[40px]">
-            {blog?.categories?.map((category) => (
-              <span
-                key={category?.id}
+          <div className="flex gap-4 mb-10 ">
+            {blog.categories?.map((category) => (
+              <p
+                key={category.id}
+                className="h-7"
                 style={{
-                  color: category?.text_color,
-                  backgroundColor: category?.background_color,
-                  padding: '4px',
-                  margin: '2px',
-                  borderRadius: '4px',
+                  color: category.text_color,
+                  backgroundColor: category.background_color,
+                  padding: '6px 10px',
+                  borderRadius: '30px',
                 }}
               >
-                {category?.name}
-              </span>
+                {category.name}
+              </p>
             ))}
           </div>
           <p className="text-[#404049] text-[16px]">{blog?.description}</p>

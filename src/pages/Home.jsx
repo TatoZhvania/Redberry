@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import arrow from '../assets/Arrow.png';
 import { Link } from 'react-router-dom';
 import { truncate } from 'lodash';
+import Categories from '../components/Categories';
 
 const Home = () => {
   const baseURL = 'https://api.blog.redberryinternship.ge/api/blogs';
@@ -37,6 +38,8 @@ const Home = () => {
         </div>
       </div>
 
+      <Categories />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-[4.0625rem] container mx-auto">
         {blogs.map((blog) => (
           <div key={blog.id} className="flex flex-col gap-[1rem] items-start">
@@ -49,28 +52,25 @@ const Home = () => {
             <p className="text-[0.75rem] text-[#85858D] ">
               {blog.publish_date}
             </p>
-            <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold ">
+            <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold mb-auto">
               {truncate(blog.title, { length: 65 })}
             </h2>
 
-            <div className="mb-2">
-              <div className="flex gap-4">
-                {blog.categories.map((category) => (
-                  <p
-                    key={category.id}
-                    className="h-7 w-full"
-                    style={{
-                      color: category.text_color,
-                      backgroundColor: category.background_color,
-                      padding: '0.25rem',
-                      margin: '0.2rem',
-                      borderRadius: '0.25rem',
-                    }}
-                  >
-                    {category.name}
-                  </p>
-                ))}
-              </div>
+            <div className="flex gap-4">
+              {blog.categories.map((category) => (
+                <p
+                  key={category.id}
+                  className="h-7 w-full"
+                  style={{
+                    color: category.text_color,
+                    backgroundColor: category.background_color,
+                    padding: '6px 10px',
+                    borderRadius: '30px',
+                  }}
+                >
+                  {category.name}
+                </p>
+              ))}
             </div>
             <p className="mb-4 text-[1rem] font-normal">
               {truncate(blog.description, { length: 90 })}

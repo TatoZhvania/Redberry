@@ -47,7 +47,6 @@ const Header = () => {
       body: JSON.stringify({ email }),
     })
       .then((response) => {
-        // console.log('Response status:', response.status);
         if (response.status === 204) {
           setIsAuthenticated(true);
           setEmailError('');
@@ -57,17 +56,16 @@ const Header = () => {
         }
       })
       .then((data) => {
-        // console.log('data:', data);
         if (!isAuthenticated && data.exists) {
           setIsAuthenticated(true);
           setEmailError('');
         } else if (!isAuthenticated) {
-          setEmailError('ელ-ფოსტა არ მოიძებნა');
+          setEmailError('დაფიქსირდა შეცდომა');
         }
       })
       .catch((error) => {
         console.error('Error:', error);
-        setEmailError('დაფიქსირდა შეცდომა');
+        setEmailError(' ელ-ფოსტა არ მოიძებნა');
       });
   };
 
