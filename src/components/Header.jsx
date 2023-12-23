@@ -50,6 +50,8 @@ const Header = () => {
         if (response.status === 204) {
           setIsAuthenticated(true);
           setEmailError('');
+          localStorage.setItem('email', email);
+          localStorage.setItem('isAuthenticated', true);
           return {};
         } else {
           throw new Error('Invalid response from the server');
@@ -65,7 +67,7 @@ const Header = () => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        setEmailError(' ელ-ფოსტა არ მოიძებნა');
+        setEmailError('ელ-ფოსტა არ მოიძებნა');
       });
   };
 
