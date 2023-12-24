@@ -12,4 +12,32 @@
     font-family: 'FiraGO', sans-serif;
   }
 
+  .input {
+    @apply w-72 h-11 py-3 px-4 bg-[#FCFCFD] text-[#85858D] text-sm outline-[#5D37F3] rounded-xl
+  }
+
+  .input-heading {
+    @apply text-[#1A1A1F] text-sm font-medium leading-5
+  }
+
+  .input-error {
+    @apply border border-solid border-[#EA1919] bg-[#FAF2F3]
+  }
+
+  .input-success {
+    @apply border border-solid border-[#14D81C]
+  }
+
+  .text-normal {
+    @apply text-[#85858D] text-xs leading-5
+  }
+
+  .text-error {
+    @apply text-[#EA1919] text-xs leading-5
+  }
+
+  .text-success {
+    @apply text-[#14D81C] text-xs leading-5
+  }
+
 }
