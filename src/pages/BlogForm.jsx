@@ -6,6 +6,7 @@ import backArrow from '../assets/greyArrow.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import FormModal from '../components/FormModal';
 import FormCategories from '../components/FormCategories';
+import infoCircle from '../assets/info-circle.svg';
 
 const BlogForm = () => {
   const [formData, setFormData] = useState(new FormData());
@@ -137,7 +138,7 @@ const BlogForm = () => {
           <img
             src={backArrow}
             alt="back-arrow"
-            className="absolute left-[76px] top-[40px]"
+            className="absolute left-[76px] top-[40px] rounded-full bg-[#E4E3EB] hover:bg-[#D9D8E0]"
           />
         </Link>
         <div className="flex flex-col gap-6 w-[600px] h-[928px] text-left items-start mt-10">
@@ -344,8 +345,10 @@ const BlogForm = () => {
           <div className="flex w-full justify-end">
             <button
               type="submit"
-              className={`w-72 text-[#FFF] text-sm py-[0.625rem] px-5 rounded-lg ${
-                isFormValid ? 'bg-[#5D37F3]' : 'bg-[#E4E3EB]'
+              className={`w-72 text-[#FFF] text-sm py-[0.625rem] px-5 rounded-lg${
+                isFormValid
+                  ? 'bg-[#5D37F3] hover:bg-[#512BE7] active:bg-[#4721DD] '
+                  : 'bg-[#E4E3EB]'
               }`}
             >
               გამოქვეყნება

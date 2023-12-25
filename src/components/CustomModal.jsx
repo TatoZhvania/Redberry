@@ -37,7 +37,7 @@ const CustomModal = ({
                 წარმატებული ავტორიზაცია
               </p>
               <button
-                className="bg-[#5D37F3] text-sm w-full py-3 rounded-lg mt-6 text-[#fff]"
+                className="bg-[#5D37F3] hover:bg-[#512BE7] text-sm w-full py-3 rounded-lg mt-6 text-[#fff]"
                 onClick={closeModal}
               >
                 კარგი
@@ -61,7 +61,9 @@ const CustomModal = ({
                 placeholder="Example@redberry.ge"
                 type="text"
                 className={`rounded-xl bg-[#F7F7FF] h-11 text-[#85858D] text-sm border-[1.5px] ${
-                  emailError ? 'border-red-500' : 'border-[#5D37F3]'
+                  emailError
+                    ? 'border-[#EA1919] bg-[#FAF2F3]'
+                    : 'border-[#5D37F3]'
                 } outline-none p-4`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +77,7 @@ const CustomModal = ({
             </div>
 
             <button
-              className="bg-[#5D37F3] w-full py-3 rounded-lg mt-6 text-[#fff] text-sm "
+              className="bg-[#5D37F3] hover:bg-[#512BE7] w-full py-3 rounded-lg mt-6 text-[#fff] text-sm "
               onClick={handleLogin}
             >
               შესვლა

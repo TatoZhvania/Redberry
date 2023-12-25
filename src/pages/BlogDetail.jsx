@@ -33,7 +33,7 @@ const BlogDetail = () => {
           <img
             src={backArrow}
             alt="back-arrow"
-            className="absolute left-[4.75rem] top-10 "
+            className="absolute left-0 md:left-[4.75rem] top-10 "
           />
         </Link>
 
@@ -46,8 +46,9 @@ const BlogDetail = () => {
           <p className="text-[#1A1A1F] text-base mb-2 font-[500]">
             {blog?.author}
           </p>
-          <div className="flex gap-3 text-[#85858D] text-xs mb-6">
+          <div className="flex gap-3 text-[#85858D] text-xs mb-6 ">
             <p>{blog?.publish_date}</p>
+            <p>•</p>
             <p>{blog?.email}</p>
           </div>
 
