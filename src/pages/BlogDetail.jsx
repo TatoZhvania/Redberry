@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import backArrow from '../assets/Arrow.svg';
+import CustomSlider from '../components/CustomSlider';
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -31,25 +33,25 @@ const BlogDetail = () => {
           <img
             src={backArrow}
             alt="back-arrow"
-            className="absolute left-[76px] top-[40px]"
+            className="absolute left-[4.75rem] top-10 "
           />
         </Link>
 
-        <div className="mt-[40px] max-w-2xl">
+        <div className="mt-10 max-w-2xl">
           <img
             src={blog?.image}
             alt={blog?.title}
-            className="w-full h-[320px] mb-[40px] object-cover"
+            className="w-full h-80 mb-10 object-cover rounded-xl"
           />
-          <p className="text-[#1A1A1F] text-[16px] mb-[8px] font-[500]">
+          <p className="text-[#1A1A1F] text-base mb-2 font-[500]">
             {blog?.author}
           </p>
-          <div className="flex gap-3 text-[#85858D] text-[12px] mb-[24px]">
+          <div className="flex gap-3 text-[#85858D] text-xs mb-6">
             <p>{blog?.publish_date}</p>
-            <p>liekvaracxelai@redberry</p>
+            <p>{blog?.email}</p>
           </div>
 
-          <h1 className="text-[#1A1A1F] text-[32px] font-bold mb-[24px]">
+          <h1 className="text-[#1A1A1F] text-[2rem] font-bold mb-6 ">
             {blog?.title}
           </h1>
 
@@ -62,14 +64,25 @@ const BlogDetail = () => {
                   color: category.text_color,
                   backgroundColor: category.background_color,
                   padding: '6px 10px',
-                  borderRadius: '30px',
+                  borderRadius: '1.875rem',
                 }}
               >
-                {category.name}
+                {category?.name}
               </p>
             ))}
           </div>
-          <p className="text-[#404049] text-[16px]">{blog?.description}</p>
+          <p className="text-[#404049] text-base leading-7">
+            {blog?.description}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col w-[80.5rem] mx-auto mt-[6.125rem]">
+        <h1 className="text-[#1A1A1F] text-[2rem] font-bold text-start">
+          მსგავსი სტატიები
+        </h1>
+        <div className="flex flex-col mt-10">
+          <CustomSlider categoryId={blog.categories?.[0]?.id} />
         </div>
       </div>
     </>

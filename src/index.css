@@ -40,4 +40,13 @@
     @apply text-[#14D81C] text-xs leading-5
   }
 
+  .slick-arrow {
+    @apply w-[44px] h-[44px]
+  }
+
+  .slick-disabled {
+    opacity: 0.1;
+    cursor: not-allowed;
+  }
+
 }

@@ -52,7 +52,7 @@ const Home = () => {
             <p className="text-[0.75rem] text-[#85858D] ">
               {blog.publish_date}
             </p>
-            <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold mb-auto">
+            <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold h-14">
               {truncate(blog.title, { length: 65 })}
             </h2>
 
@@ -72,7 +72,7 @@ const Home = () => {
                 </p>
               ))}
             </div>
-            <p className="mb-4 text-[1rem] font-normal">
+            <p className="mb-4 text-[1rem] font-normal h-14">
               {truncate(blog.description, { length: 90 })}
             </p>
             <Link

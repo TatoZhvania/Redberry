@@ -21,7 +21,7 @@ const CustomModal = ({
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Login Modal"
-      className="w-[480px] h-[18.75rem] rounded-xl bg-[#FFF] text-[#1A1A1F] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      className="w-[480px] min-h-[18.75rem] rounded-xl bg-[#FFF] text-[#1A1A1F] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-[#1A1A1F] bg-opacity-50"
     >
       {isAuthenticated ? (
