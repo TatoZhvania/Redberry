@@ -40,41 +40,52 @@ const Home = () => {
 
       <Categories />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-[4.0625rem] container mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-[4.0625rem] container mx-auto ">
         {blogs.map((blog) => (
-          <div key={blog.id} className="flex flex-col gap-[1rem] items-start">
+          <div
+            key={blog.id}
+            className="flex flex-col gap-4 items-start sm:w-80 md:w-auto "
+          >
             <img
               src={blog.image}
               alt={blog.title}
               className="sm:w-[18.75rem] md:w-full h-96 object-cover rounded-xl"
             />
-            <p className="text-xl text-[#1A1A1F] font-bold ">{blog.author}</p>
-            <p className="text-[0.75rem] text-[#85858D] ">
-              {blog.publish_date}
-            </p>
-            <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold h-14">
-              {truncate(blog.title, { length: 65 })}
-            </h2>
-
-            <div className="flex gap-4">
-              {blog.categories.map((category) => (
-                <p
-                  key={category.id}
-                  className="h-7 w-full"
-                  style={{
-                    color: category.text_color,
-                    backgroundColor: category.background_color,
-                    padding: '6px 10px',
-                    borderRadius: '30px',
-                  }}
-                >
-                  {category.name}
-                </p>
-              ))}
+            <div className="flex flex-col gap-2">
+              <p className="text-xl text-[#1A1A1F] font-bold ">{blog.author}</p>
+              <p className="text-[0.75rem] text-[#85858D] ">
+                {blog.publish_date}
+              </p>
             </div>
-            <p className="mb-4 text-[1rem] font-normal h-14">
+            <div className="mb-auto">
+              <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold">
+                {truncate(blog.title, { length: 65 })}
+              </h2>
+            </div>
+
+            <div>
+              <ul className="flex flex-wrap gap-4 mb-auto">
+                {blog.categories.map((category) => (
+                  <li
+                    key={category.id}
+                    className="w-auto"
+                    style={{
+                      color: category.text_color,
+                      backgroundColor: category.background_color,
+                      padding: '6px 10px',
+                      borderRadius: '30px',
+                    }}
+                  >
+                    {category.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className=" text-[1rem] font-normal">
               {truncate(blog.description, { length: 90 })}
             </p>
+
             <Link
               to={`/blog/${blog.id}`}
               className="text-[#5D37F3] text-[1rem] flex items-center gap-1"
