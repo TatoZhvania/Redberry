@@ -1,21 +1,27 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import blogBg from '../assets/Blog-1024x355 1.svg';
-import Header from '../components/Header';
-import arrow from '../assets/Arrow.png';
 import { Link } from 'react-router-dom';
 import { truncate } from 'lodash';
+import Header from '../components/Header';
 import Categories from '../components/Categories';
+import arrow from '../assets/Arrow.png';
+import blogBg from '../assets/Blog-1024x355 1.svg';
 
 const Home = () => {
   const baseURL = 'https://api.blog.redberryinternship.ge/api/blogs';
+  const tocken =
+    'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f';
+
+  const storedCategories =
+    JSON.parse(localStorage.getItem('selectedCategories')) || [];
   const [blogs, setBlogs] = useState([]);
+  const [selectedCategories, setSelectedCategories] =
+    useState(storedCategories);
 
   useEffect(() => {
     fetch(`${baseURL}`, {
       headers: {
-        Authorization:
-          'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f',
+        Authorization: `${tocken}`,
         'Content-Type': 'application/json',
       },
     })
@@ -23,6 +29,29 @@ const Home = () => {
       .then((data) => setBlogs(data.data))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
+
+  const toggleCategory = (categoryId) => {
+    setSelectedCategories((prevSelectedCategories) => {
+      const updatedCategories = prevSelectedCategories.includes(categoryId)
+        ? prevSelectedCategories.filter((id) => id !== categoryId)
+        : [...prevSelectedCategories, categoryId];
+
+      localStorage.setItem(
+        'selectedCategories',
+        JSON.stringify(updatedCategories)
+      );
+
+      return updatedCategories;
+    });
+  };
+
+  const filteredBlogs = selectedCategories.length
+    ? blogs.filter((blog) =>
+        blog.categories.some((category) =>
+          selectedCategories.includes(category.id)
+        )
+      )
+    : blogs;
 
   return (
     <>
@@ -38,10 +67,13 @@ const Home = () => {
         </div>
       </div>
 
-      <Categories />
+      <Categories
+        selectedCategories={selectedCategories}
+        onSelectCategory={toggleCategory}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-[4.0625rem] container mx-auto ">
-        {blogs.map((blog) => (
+        {filteredBlogs.map((blog) => (
           <div
             key={blog.id}
             className="flex flex-col gap-4 items-start sm:w-80 md:w-auto "
@@ -68,12 +100,10 @@ const Home = () => {
                 {blog.categories.map((category) => (
                   <li
                     key={category.id}
-                    className="w-auto"
+                    className="w-auto px-4 py-2 rounded-[1.875rem]"
                     style={{
                       color: category.text_color,
                       backgroundColor: category.background_color,
-                      padding: '6px 10px',
-                      borderRadius: '30px',
                     }}
                   >
                     {category.title}

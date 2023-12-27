@@ -163,10 +163,10 @@ const BlogForm = () => {
             <img
               src={backArrow}
               alt="back-arrow"
-              className="absolute left-[76px] top-[40px] rounded-full bg-[#E4E3EB] hover:bg-[#D9D8E0]"
+              className="absolute left-[4.75rem] top-10 rounded-full bg-[#E4E3EB] hover:bg-[#D9D8E0]"
             />
           </Link>
-          <div className="flex flex-col gap-6 w-[600px] h-[928px] text-left items-start mt-10">
+          <div className="flex flex-col gap-6 w-[37.5rem] h-[58rem] text-left items-start mt-10">
             <h1 className="text-[#1A1A1F] text-[2rem] font-bold mb-5">
               ბლოგის დამატება
             </h1>
@@ -319,7 +319,7 @@ const BlogForm = () => {
                   type="date"
                   id="publish_date"
                   name="publish_date"
-                  className={`input ${
+                  className={`input pl-11 ${
                     validation.publish_date === 'success'
                       ? 'input-success'
                       : validation.publish_date === 'error'

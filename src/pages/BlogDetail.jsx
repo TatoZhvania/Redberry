@@ -7,14 +7,17 @@ import backArrow from '../assets/Arrow.svg';
 import CustomSlider from '../components/CustomSlider';
 
 const BlogDetail = () => {
+  const baseURL = 'https://api.blog.redberryinternship.ge/api/blogs';
+  const tocken =
+    'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f';
+
   const { id } = useParams();
   const [blog, setBlog] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.blog.redberryinternship.ge/api/blogs/${id}`, {
+    fetch(`${baseURL}/${id}`, {
       headers: {
-        Authorization:
-          'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f',
+        Authorization: `${tocken}`,
         'Content-Type': 'application/json',
       },
     })
@@ -28,7 +31,7 @@ const BlogDetail = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col w-full min-h-screen items-center relative">
+      <div className="flex flex-col w-full  items-center relative">
         <Link to="/">
           <img
             src={backArrow}
@@ -57,28 +60,28 @@ const BlogDetail = () => {
           </h1>
 
           <div className="flex gap-4 mb-10 ">
-            {blog.categories?.map((category) => (
-              <p
-                key={category.id}
-                className="h-7"
-                style={{
-                  color: category.text_color,
-                  backgroundColor: category.background_color,
-                  padding: '6px 10px',
-                  borderRadius: '1.875rem',
-                }}
-              >
-                {category?.name}
-              </p>
-            ))}
+            <ul className="flex flex-wrap gap-4 mb-auto">
+              {blog.categories?.map((category) => (
+                <li
+                  key={category.id}
+                  className="px-[0.625rem] py-[0.375rem] rounded-[1.875rem] text-xs "
+                  style={{
+                    color: category.text_color,
+                    backgroundColor: category.background_color,
+                  }}
+                >
+                  {category?.title}
+                </li>
+              ))}
+            </ul>
           </div>
-          <p className="text-[#404049] text-base leading-7">
+          <p className="text-[#404049] text-base leading-7 ">
             {blog?.description}
           </p>
         </div>
       </div>
 
-      <div className="flex flex-col w-[80.5rem] mx-auto mt-[6.125rem]">
+      <div className="flex flex-col w-[80.5rem] mx-auto mt-[6.125rem] pb-40">
         <h1 className="text-[#1A1A1F] text-[2rem] font-bold text-start">
           მსგავსი სტატიები
         </h1>

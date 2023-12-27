@@ -67,40 +67,42 @@ const CustomSlider = ({ categoryId }) => {
       {relatedBlogs.map((relatedBlog) => (
         <div key={relatedBlog.id}>
           <img
-            src={relatedBlog.image}
-            alt={relatedBlog.title}
-            className="w-[25.5rem] h-[20.5rem] object-cover mb-2 rounded-xl"
+            src={relatedBlog?.image}
+            alt={relatedBlog?.title}
+            className="w-[25.5rem] h-[20.5rem] object-cover rounded-xl"
           />
-          <p className="text-[#1A1A1F] text-base mb-2 font-[500]">
-            {relatedBlog.author}
-          </p>
-          <div className="flex gap-3 text-[#85858D] text-xs mb-4">
-            <p>{relatedBlog.publish_date}</p>
-            <p>{relatedBlog.email}</p>
+
+          <div className="flex flex-col gap-2 mt-6">
+            <p className="text-[#1A1A1F] text-base  font-[500]">
+              {relatedBlog?.author}
+            </p>
+            <p className="flex gap-3 text-[#85858D] text-xs ">
+              <p>{relatedBlog?.publish_date}</p>
+            </p>
           </div>
 
-          <h1 className="text-[#1A1A1F] text-xl font-bold  w-[25.5rem] h-[3.5rem] mb-4">
-            {truncate(relatedBlog.title, { length: 60 })}
+          <h1 className="text-[#1A1A1F] text-xl font-bold  w-[25.5rem] h-[3.5rem] mt-4">
+            {truncate(relatedBlog?.title, { length: 60 })}
           </h1>
 
-          <div className="flex gap-4 mb-4">
-            {relatedBlog.categories?.map((category) => (
-              <p
-                key={category.id}
-                className="h-7"
-                style={{
-                  color: category.text_color,
-                  backgroundColor: category.background_color,
-                  padding: '6px 10px',
-                  borderRadius: '1.875rem',
-                }}
-              >
-                {category.name}
-              </p>
-            ))}
+          <div className="min-h-[5.5rem] mt-4">
+            <ul className="flex flex-wrap gap-4">
+              {relatedBlog?.categories?.map((category) => (
+                <li
+                  key={category.id}
+                  className="px-[0.625rem] py-[0.375rem] rounded-[1.875rem] text-xs "
+                  style={{
+                    color: category.text_color,
+                    backgroundColor: category.background_color,
+                  }}
+                >
+                  {category?.title}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <p className="text-[1rem] font-normal w-[25.5rem] h-[3.5rem] mb-4">
+          <p className="text-[1rem] font-normal w-[25.5rem] h-[3.5rem] mb-4 ">
             {truncate(relatedBlog.description, { length: 90 })}
           </p>
           <Link

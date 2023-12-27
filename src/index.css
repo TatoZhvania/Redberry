@@ -49,5 +49,14 @@
     cursor: not-allowed;
   }
 
+  .input[type='date'] {
+    background: url('./assets/calendar.svg');
+    background-repeat: no-repeat;
+    background-position: 1rem;
+    background-color: #FCFCFD;
+  }
 
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
 }
