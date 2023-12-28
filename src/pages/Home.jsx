@@ -17,6 +17,7 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedCategories, setSelectedCategories] =
     useState(storedCategories);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${baseURL}`, {
@@ -26,8 +27,14 @@ const Home = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setBlogs(data.data))
-      .catch((error) => console.error('Error fetching data:', error));
+      .then((data) => {
+        setBlogs(data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
   }, []);
 
   const toggleCategory = (categoryId) => {
@@ -56,78 +63,86 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="flex justify-between items-center px-[5.5625rem] bg-[#F3F2FA]">
-        <div>
-          <h1 className="text-[#1A1A1F] text-3xl md:text-6xl font-bold">
-            ბლოგი
-          </h1>
-        </div>
-        <div>
-          <img src={blogBg} alt="blog-bg" />
-        </div>
-      </div>
-
-      <Categories
-        selectedCategories={selectedCategories}
-        onSelectCategory={toggleCategory}
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-[4.0625rem] container mx-auto ">
-        {filteredBlogs.map((blog) => (
-          <div
-            key={blog.id}
-            className="flex flex-col gap-4 items-start sm:w-80 md:w-auto "
-          >
-            <img
-              src={blog.image}
-              alt={blog.title}
-              className="sm:w-[18.75rem] md:w-full h-96 object-cover rounded-xl"
-            />
-            <div className="flex flex-col gap-2">
-              <p className="text-xl text-[#1A1A1F] font-bold ">{blog.author}</p>
-              <p className="text-[0.75rem] text-[#85858D] ">
-                {blog.publish_date}
-              </p>
-            </div>
-            <div className="min-h-[3.5rem]">
-              <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold">
-                {truncate(blog.title, { length: 65 })}
-              </h2>
-            </div>
-
+      {loading ? (
+        <div className="text-7xl text-center">Loading...</div>
+      ) : (
+        <>
+          <div className="flex justify-between items-center px-[5.5625rem] bg-[#F3F2FA]">
             <div>
-              <ul className="flex flex-wrap gap-4 mb-auto">
-                {blog.categories.map((category) => (
-                  <li
-                    key={category.id}
-                    className="w-auto px-4 py-2 rounded-[1.875rem]"
-                    style={{
-                      color: category.text_color,
-                      backgroundColor: category.background_color,
-                    }}
-                  >
-                    {category.title}
-                  </li>
-                ))}
-              </ul>
+              <h1 className="text-[#1A1A1F] text-3xl md:text-6xl font-bold">
+                ბლოგი
+              </h1>
             </div>
-
-            <div className="min-h-[3.5rem]">
-              <p className="text-[1rem] font-normal">
-                {truncate(blog.description, { length: 90 })}
-              </p>
+            <div>
+              <img src={blogBg} alt="blog-bg" />
             </div>
-
-            <Link
-              to={`/blog/${blog.id}`}
-              className="text-[#5D37F3] text-[1rem] flex items-center gap-1"
-            >
-              სრულად ნახვა
-              <img src={arrow} alt="arrow" />
-            </Link>
           </div>
-        ))}
-      </div>
+
+          <Categories
+            selectedCategories={selectedCategories}
+            onSelectCategory={toggleCategory}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-[4.0625rem] container mx-auto ">
+            {filteredBlogs.map((blog) => (
+              <div
+                key={blog.id}
+                className="flex flex-col gap-4 items-start sm:w-80 md:w-auto "
+              >
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="sm:w-[18.75rem] md:w-full h-96 object-cover rounded-xl"
+                />
+                <div className="flex flex-col gap-2">
+                  <p className="text-xl text-[#1A1A1F] font-bold ">
+                    {blog.author}
+                  </p>
+                  <p className="text-[0.75rem] text-[#85858D] ">
+                    {blog.publish_date}
+                  </p>
+                </div>
+                <div className="min-h-[3.5rem]">
+                  <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold">
+                    {truncate(blog.title, { length: 65 })}
+                  </h2>
+                </div>
+
+                <div>
+                  <ul className="flex flex-wrap gap-4 mb-auto">
+                    {blog.categories.map((category) => (
+                      <li
+                        key={category.id}
+                        className="w-auto px-4 py-2 rounded-[1.875rem]"
+                        style={{
+                          color: category.text_color,
+                          backgroundColor: category.background_color,
+                        }}
+                      >
+                        {category.title}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="min-h-[3.5rem]">
+                  <p className="text-[1rem] font-normal">
+                    {truncate(blog.description, { length: 90 })}
+                  </p>
+                </div>
+
+                <Link
+                  to={`/blog/${blog.id}`}
+                  className="text-[#5D37F3] text-[1rem] flex items-center gap-1"
+                >
+                  სრულად ნახვა
+                  <img src={arrow} alt="arrow" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 };

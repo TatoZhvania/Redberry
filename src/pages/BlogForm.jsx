@@ -170,8 +170,8 @@ const BlogForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="min-h-full bg-[#FBFAFF] pb-28">
-        <div className="h-20 w-full px-16 py-7 flex justify-center bg-[#fff]">
+      <form onSubmit={handleSubmit} className="min-h-full bg-[#FBFAFF] pb-28 ">
+        <div className="h-20 w-full px-16 py-7 flex justify-center bg-[#fff] border border-b-[#E4E3EB]">
           <div>
             <img src={logo} alt="logo" />
           </div>

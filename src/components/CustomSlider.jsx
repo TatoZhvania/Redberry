@@ -44,22 +44,21 @@ const CustomSlider = ({ categoryId }) => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `https://api.blog.redberryinternship.ge/api/blogs?category=${categoryId}`,
-      {
-        headers: {
-          Authorization:
-            'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f',
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    fetch(`https://api.blog.redberryinternship.ge/api/blogs`, {
+      headers: {
+        Authorization:
+          'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f',
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Related Blogs API Response:', data);
-        setRelatedBlogs(data.data || []);
+        const filteredBlogs = data.data.filter((blog) =>
+          blog.categories.some((category) => category.id === categoryId)
+        );
+        setRelatedBlogs(filteredBlogs);
       })
-      .catch((error) => console.error('Error fetching related blogs:', error));
+      .catch((error) => console.error('Error fetching all blogs:', error));
   }, [categoryId]);
 
   return (
@@ -77,7 +76,7 @@ const CustomSlider = ({ categoryId }) => {
               {relatedBlog?.author}
             </p>
             <p className="flex gap-3 text-[#85858D] text-xs ">
-              <p>{relatedBlog?.publish_date}</p>
+              {relatedBlog?.publish_date}
             </p>
           </div>
 

@@ -10,11 +10,12 @@ const BlogDetail = () => {
   const baseURL = 'https://api.blog.redberryinternship.ge/api/blogs';
   const tocken =
     'Bearer 8e0c25f0c19bf5ba93c19aabb0f1f8a793e3577444df4ab1d3013f0076cdf24f';
-
   const { id } = useParams();
-  const [blog, setBlog] = useState([]);
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${baseURL}/${id}`, {
       headers: {
         Authorization: `${tocken}`,
@@ -24,10 +25,17 @@ const BlogDetail = () => {
       .then((response) => response.json())
       .then((data) => {
         setBlog(data);
+        setLoading(false);
       })
-      .catch((error) => console.error('Error fetching blog details:', error));
+      .catch((error) => {
+        console.error('Error fetching blog details:', error);
+        setLoading(false);
+      });
   }, [id]);
 
+  if (loading) {
+    return <p className="text-7xl text-center">Loading...</p>;
+  }
   return (
     <>
       <Header />
