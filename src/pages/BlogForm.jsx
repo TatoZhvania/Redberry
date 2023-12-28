@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../assets/LOGO-02 3.svg';
 import backArrow from '../assets/greyArrow.svg';
 import { Link } from 'react-router-dom';
@@ -8,9 +9,17 @@ import FormModal from '../components/FormModal';
 import FormCategories from '../components/FormCategories';
 import infoCircle from '../assets/info-circle.svg';
 import axios from 'axios';
+import folderAdd from '../assets/folder-add.svg';
+import gallery from '../assets/gallery.svg';
+import closeBtn from '../assets/close.svg';
 
 const BlogForm = () => {
   const [saveImage, setSaveImage] = useState(null);
+  const [categoryError, setCategoryError] = useState(false);
+
+  const removeImage = () => {
+    setSaveImage(null);
+  };
 
   const [formData, setFormData] = useState({
     title: '',
@@ -38,7 +47,6 @@ const BlogForm = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    window.location.reload();
   };
 
   const handleInputChange = (e) => {
@@ -49,19 +57,7 @@ const BlogForm = () => {
     switch (name) {
       case 'image':
         const file = e.target.files[0];
-        console.log(file);
-
         setSaveImage(file);
-
-        // if (file && file.type.startsWith('image/')) {
-        //   ((prevFormData) => ({
-        //     ...prevFormData,
-        //     image: file,
-        //   }));
-        // }
-        // else {
-        //   isValid = false;
-        // }
         break;
 
       case 'author':
@@ -84,7 +80,8 @@ const BlogForm = () => {
         isValid = value.trim() !== '';
         break;
       case 'email':
-        isValid = /^[a-zA-Z0-9._-]+@redberry\.ge$/.test(value);
+        isValid =
+          value.length <= 0 || /^[a-zA-Z0-9._-]+@redberry\.ge$/.test(value);
         break;
       case 'category_id':
         isValid = value !== '';
@@ -106,8 +103,6 @@ const BlogForm = () => {
   );
 
   const handleSubmit = async (e) => {
-    console.log(formData.category_id);
-
     e.preventDefault();
 
     if (!isFormValid) {
@@ -150,9 +145,32 @@ const BlogForm = () => {
     }
   };
 
+  const handleButtonClick = () => {
+    setCategoryError(formData.category_id.length === 0);
+  };
+
+  const saveFormDataToLocalStorage = () => {
+    localStorage.setItem('blogFormData', JSON.stringify(formData));
+  };
+
+  const getFormDataFromLocalStorage = () => {
+    const storedData = localStorage.getItem('blogFormData');
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+  };
+
+  useEffect(() => {
+    getFormDataFromLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    saveFormDataToLocalStorage();
+  }, [formData]);
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="min-h-full bg-[#FBFAFF] pb-28">
         <div className="h-20 w-full px-16 py-7 flex justify-center bg-[#fff]">
           <div>
             <img src={logo} alt="logo" />
@@ -170,18 +188,50 @@ const BlogForm = () => {
             <h1 className="text-[#1A1A1F] text-[2rem] font-bold mb-5">
               ბლოგის დამატება
             </h1>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="image" className="input-heading">
-                ატვირთეთ ფოტო
-              </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+
+            {/* Image Input */}
+            {!saveImage && (
+              <div className="flex flex-col gap-2">
+                <p className="input-heading">ატვირთეთ ფოტო</p>
+                <div className="flex flex-col gap-2 border-2 border-[#85858D] border-dashed rounded-xl w-[37.5rem] h-[11.25rem] bg-[#F1EFFB] items-center justify-center">
+                  <label
+                    htmlFor="image"
+                    className=" flex flex-col items-center justify-center gap-6 w-[37.5rem] h-[11.25rem]  cursor-pointer"
+                  >
+                    <img
+                      src={folderAdd}
+                      alt="folder-add"
+                      className="w-10 h-10"
+                    />
+                    <p className="text-[#1A1A1F] text-sm">
+                      ჩააგდეთ ფაილი აქ ან {''}
+                      <span className="input-heading underline">
+                        აირჩიეთ ფაილი
+                      </span>
+                    </p>
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+            )}
+            {saveImage && (
+              <div className="w-[37.5rem] bg-[#F2F2FA] rounded-xl flex items-center justify-between px-4 py-[1.125rem]">
+                <div className="flex gap-3 items-center">
+                  <img src={gallery} alt="gallery" />
+                  <p>{saveImage.name}</p>
+                </div>
+                <button onClick={removeImage}>
+                  <img src={closeBtn} alt="close-btn" />
+                </button>
+              </div>
+            )}
 
             {/* Author */}
             <div className="flex gap-6">
@@ -284,11 +334,11 @@ const BlogForm = () => {
               <textarea
                 id="description"
                 name="description"
-                className={`w-[37.5rem] h-[7.75rem] bg-[#FCFCFD] text-[#85858D] outline-[#5D37F3] px-4 py-3 rounded-xl ${
+                className={`input-description  ${
                   validation.description === 'success'
-                    ? 'input-success'
+                    ? 'input-description-success'
                     : validation.description === 'error'
-                    ? 'input-error'
+                    ? 'input-description-error'
                     : ''
                 }`}
                 value={formData.description}
@@ -374,6 +424,7 @@ const BlogForm = () => {
             <div className="flex w-full justify-end">
               <button
                 type="submit"
+                onClick={handleButtonClick}
                 className={`w-72 text-[#FFF] text-sm py-[0.625rem] px-5 rounded-lg ${
                   isFormValid
                     ? 'bg-[#5D37F3] hover:bg-[#512BE7] active:bg-[#4721DD]'

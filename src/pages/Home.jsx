@@ -89,7 +89,7 @@ const Home = () => {
                 {blog.publish_date}
               </p>
             </div>
-            <div className="mb-auto">
+            <div className="min-h-[3.5rem]">
               <h2 className="text-[1.25rem] text-[#1A1A1F] font-bold">
                 {truncate(blog.title, { length: 65 })}
               </h2>
@@ -112,9 +112,11 @@ const Home = () => {
               </ul>
             </div>
 
-            <p className=" text-[1rem] font-normal">
-              {truncate(blog.description, { length: 90 })}
-            </p>
+            <div className="min-h-[3.5rem]">
+              <p className="text-[1rem] font-normal">
+                {truncate(blog.description, { length: 90 })}
+              </p>
+            </div>
 
             <Link
               to={`/blog/${blog.id}`}

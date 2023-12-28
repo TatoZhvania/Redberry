@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react';
 import Modal from 'react-modal';
-import addBtn from '../assets/add.svg';
+import React from 'react';
+import closeBtn from '../assets/close.svg';
 import tick from '../assets/tick-circle.svg';
 import infoCircle from '../assets/info-circle.svg';
+
+Modal.setAppElement('#root');
 
 const CustomModal = ({
   isOpen,
@@ -27,7 +29,7 @@ const CustomModal = ({
       {isAuthenticated ? (
         <>
           <button className="absolute right-5 top-5" onClick={closeModal}>
-            <img src={addBtn} alt="add-btn" />
+            <img src={closeBtn} alt="add-btn" />
           </button>
 
           <div className="mx-10 my-10 mt-16">
@@ -48,7 +50,7 @@ const CustomModal = ({
       ) : (
         <>
           <button className="absolute right-5 top-5" onClick={closeModal}>
-            <img src={addBtn} alt="add-btn" />
+            <img src={closeBtn} alt="add-btn" />
           </button>
 
           <div className="mx-10 my-10 mt-16">

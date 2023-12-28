@@ -85,7 +85,7 @@ const CustomSlider = ({ categoryId }) => {
             {truncate(relatedBlog?.title, { length: 60 })}
           </h1>
 
-          <div className="min-h-[5.5rem] mt-4">
+          <div className="mt-4">
             <ul className="flex flex-wrap gap-4">
               {relatedBlog?.categories?.map((category) => (
                 <li
@@ -102,7 +102,7 @@ const CustomSlider = ({ categoryId }) => {
             </ul>
           </div>
 
-          <p className="text-[1rem] font-normal w-[25.5rem] h-[3.5rem] mb-4 ">
+          <p className="text-[1rem] font-normal w-[25.5rem] h-[3.5rem] mb-4 mt-4">
             {truncate(relatedBlog.description, { length: 90 })}
           </p>
           <Link

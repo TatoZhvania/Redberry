@@ -80,7 +80,7 @@ const Header = () => {
         <div>
           {isAuthenticated ? (
             <>
-              <Link to="blog-form">
+              <Link to="/blog-form">
                 <button
                   className="bg-[#5D37F3] rounded-lg text-white px-4 py-3 text-sm"
                   onClick={openModal}
