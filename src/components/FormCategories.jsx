@@ -2,6 +2,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
+import closeBtn from '../assets/add.svg';
+import arrowDown from '../assets/arrow-down.svg';
 
 const FormCategories = ({ handleInputChange, validation }) => {
   const [categories, setCategories] = useState([]);
@@ -94,7 +96,7 @@ const FormCategories = ({ handleInputChange, validation }) => {
           კატეგორია *
         </label>
         <div
-          className={`input mt-[3px] cursor-pointer relative flex items-center overflow-hidden ${
+          className={`input mt-[3px] cursor-pointer relative flex items-center overflow-hidden active:border-[#5D37F3]  ${
             selectedCategoryIds.length > 0
               ? 'input-success'
               : validation.category_id === 'error'
@@ -110,19 +112,23 @@ const FormCategories = ({ handleInputChange, validation }) => {
                 .map((selectedCategory) => (
                   <div
                     key={selectedCategory.id}
-                    className="rounded-[1.875rem] py-2 px-3 m-2 min-w-fit"
+                    className="rounded-[1.875rem] py-2 px-3 m-2 min-w-fit flex gap-2"
                     style={{
                       color: selectedCategory.text_color,
                       backgroundColor: selectedCategory.background_color,
                     }}
                     onClick={() => handleRemoveCategory(selectedCategory)}
                   >
-                    {selectedCategory.title}
+                    <p> {selectedCategory.title}</p>
+                    <img src={closeBtn} alt="close-btn" />
                   </div>
                 ))}
             </div>
           ) : (
-            <div>Select a category</div>
+            <div className="flex justify-between w-72">
+              <p>აირჩიეთ კატეგორია</p>
+              <img src={arrowDown} alt="arrow-down" />
+            </div>
           )}
         </div>
         {showDropdown && (
